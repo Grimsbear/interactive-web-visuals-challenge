@@ -14,6 +14,14 @@ function ShowMetaData(sampleId)
     console.log(`Show Meta Data: ${sampleId}`);
 }
 
+function optionChanged(sampleId)
+{
+    console.log(`Option Changed: ${sampleId}`)
+    DrawBarGraph(sampleId);
+    DrawBubbleChart(sampleId);
+    ShowMetaData(sampleId);
+}
+
 function InitDashboard(sampleId)
 {
     let selector = d3.select("#selDataset");
