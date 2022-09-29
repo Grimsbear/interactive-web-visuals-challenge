@@ -3,7 +3,7 @@ const url = "https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/
 
 function DrawBarGraph(sampleId)
 {
-    console.log(`Draw Bar Graph: ${sampleId}`);
+    // console.log(`Draw Bar Graph: ${sampleId}`);
 
     d3.json(url).then(data => {
         // console.log(data);
@@ -39,7 +39,7 @@ function DrawBarGraph(sampleId)
 
 function DrawBubbleChart(sampleId)
 {
-    console.log(`Draw Bubble Chart: ${sampleId}`);
+    // console.log(`Draw Bubble Chart: ${sampleId}`);
 
     d3.json(url).then(data => {
         // console.log(data);
@@ -47,7 +47,7 @@ function DrawBubbleChart(sampleId)
         let samples = data.samples;
         let resultArray = samples.filter(s => s.id == sampleId);
         let result = resultArray[0];
-        console.log(result);
+        // console.log(result);
 
         let otu_ids = result.otu_ids;
         let otu_labels = result.otu_labels;
@@ -80,11 +80,35 @@ function DrawBubbleChart(sampleId)
 function ShowMetaData(sampleId)
 {
     console.log(`Show Meta Data: ${sampleId}`);
+
+    d3.json(url).then(data => {
+    console.log(data);
+
+        let samples = data.samples;
+        let resultArray = samples.filter(s => s.id == sampleId);
+        let result = resultArray[0];
+        console.log(result);
+
+        let metadata = data.metadata;
+        let metaArray = metadata.filter(m => m.id == sampleId);
+        let metaResult = metaArray[0];
+
+        let metaData = `
+            <h5>Id : ${metaResult.id}<h5/>
+            <h5>Ethnicity : ${metaResult.ethnicity}<h5>
+            <h5>Gender : ${metaResult.gender}<h5>
+            <h5>Age : ${metaResult.age}<h5>
+            <h5>Location : ${metaResult.location}<h5>
+            <h5>BB Type : ${metaResult.bbtype}<h5>
+            <h5>W Freq : ${metaResult.wfreq}<h5>
+            `;
+        d3.select('#sample-metadata').html(metaData);
+    });
 }
 
 function optionChanged(sampleId)
 {
-    console.log(`Option Changed: ${sampleId}`)
+    // console.log(`Option Changed: ${sampleId}`)
     DrawBarGraph(sampleId);
     DrawBubbleChart(sampleId);
     ShowMetaData(sampleId);
